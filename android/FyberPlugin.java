@@ -3,6 +3,7 @@ package uk.mondosports.plugins.fyber;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.sponsorpay.SponsorPay;
@@ -87,8 +88,8 @@ public class FyberPlugin extends CordovaPlugin {
     }
 
     private void showOfferWall(JSONObject options) {
-        Intent offerWallIntent = SponsorPayPublisher.getIntentForOfferWallActivity(cordova.getContext(), true);
-        startActivityForResult(offerWallIntent, OFFERWALL_REQUEST_CODE);
+        Intent offerWallIntent = SponsorPayPublisher.getIntentForOfferWallActivity(cordova.getActivity().getApplicationContext(), true);
+        cordova.getActivity().startActivityForResult(offerWallIntent, OFFERWALL_REQUEST_CODE);
     }
     
     private PluginResult executeShowRewardedVideo(JSONObject options, CallbackContext callbackContext) {
