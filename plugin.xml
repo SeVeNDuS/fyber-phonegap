@@ -1,0 +1,38 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+    <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="uk.mondosports.plugins.fyber" version="0.0.1">
+    <name>Fyber</name>
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+    <description>Fyber Phonegap Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,fyber,ads,offerwall</keywords>
+    <js-module src="www/fyber.js" name="Fyber">
+        <clobbers target="window.plugins.fyber" />
+    </js-module>
+
+    <platform name="android">
+        <dependency id="com.google.playservices" url="https://github.com/MobileChromeApps/google-play-services.git"/>
+        
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Fyber">
+                <param name="android-package" value="uk.mondosports.plugins.fyber.FyberPlugin"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.sponsorpay.publisher.ofw.SPOfferWallActivity" android:configChanges="orientation" />
+        </config-file>
+
+        <source-file src="android/FyberPlugin.java" target-dir="src/uk/mondosports/plugins/fyber" />
+        <source-file src="android/sponsorpay-android-sdk-7.0.2.jar" target-dir="libs/" />
+    </platform>
+</plugin>
