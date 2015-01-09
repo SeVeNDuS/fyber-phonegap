@@ -5,6 +5,7 @@ import java.util.Map;
 
 import android.util.Log;
 
+import com.sponsorpay.SponsorPay;
 import com.sponsorpay.publisher.SponsorPayPublisher;
 
 import org.apache.cordova.CallbackContext;
@@ -32,7 +33,6 @@ public class FyberPlugin extends CordovaPlugin {
     private String appKey = DEFAULT_APP_KEY;
     private String userId = "5043b715c3bd823b760000ff";
     private String securityToken = "";
-    private SSAPublisher ssaPub; 
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
