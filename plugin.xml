@@ -1,6 +1,6 @@
  <?xml version="1.0" encoding="UTF-8"?>
     <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="uk.mondosports.plugins.fyber" version="0.0.1">
+        id="uk.mondosports.plugins.fyber" version="0.0.2">
     <name>Fyber</name>
     <engines>
         <engine name="cordova" version=">=3.0.0" />
@@ -13,7 +13,7 @@
     </js-module>
 
     <platform name="android">
-        <dependency id="com.google.playservices" />
+        <framework src="com.google.android.gms:play-services-ads:+" />
         
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Fyber">
