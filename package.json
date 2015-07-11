@@ -1,0 +1,28 @@
+{
+  "name": "fyber-phonegap",
+  "version": "0.0.2",
+  "description": "Fyber plugin for Cordova Apps (Still in development)",
+  "cordova": {
+    "id": "uk.mondosports.plugins.fyber",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SeVeNDuS/fyber-phonegap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SeVeNDuS/fyber-phonegapç7issues"
+  },
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "ad",
+    "fyber"
+  ],
+  "author": {
+    "name": "Daniel Rubio"
+  },
+  "license": "MIT"
+}
