@@ -104,7 +104,7 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
                     .withUserId(this.userId)
                     .start();
         } catch (IllegalArgumentException e) {
-            Log.d(TAG, e.getLocalizedMessage());
+            Log.d(LOGTAG, e.getLocalizedMessage());
         }
     }
 
@@ -170,12 +170,12 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
 
     @Override
     public void onAdNotAvailable(AdFormat adFormat) {
-        FyberLogger.d(getLogTag(), "No ad available");
+        FyberLogger.d(LOGTAG, "No ad available");
     }
 
     @Override
     public void onRequestError(RequestError requestError) {
-        FyberLogger.d(getLogTag(), "Semething went wrong with the request: " + requestError.getDescription());
+        FyberLogger.d(LOGTAG, "Semething went wrong with the request: " + requestError.getDescription());
     }
 
     private VirtualCurrencyRequester getVirtualCurrencyRequester() {
@@ -190,16 +190,16 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
 
     @Override
     public void onError(VirtualCurrencyErrorResponse virtualCurrencyErrorResponse) {
-        FyberLogger.d(TAG, "VCS error received - " + virtualCurrencyErrorResponse.getErrorMessage());
+        FyberLogger.d(LOGTAG, "VCS error received - " + virtualCurrencyErrorResponse.getErrorMessage());
     }
 
     @Override
     public void onSuccess(VirtualCurrencyResponse virtualCurrencyResponse) {
-        FyberLogger.d(TAG, "VCS coins received - " + virtualCurrencyResponse.getDeltaOfCoins());
+        FyberLogger.d(LOGTAG, "VCS coins received - " + virtualCurrencyResponse.getDeltaOfCoins());
     }
 
     @Override
     public void onRequestError(RequestError requestError) {
-        FyberLogger.d(TAG, "error requesting vcs: " + requestError.getDescription());
+        FyberLogger.d(LOGTAG, "error requesting vcs: " + requestError.getDescription());
     }
 }
