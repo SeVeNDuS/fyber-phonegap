@@ -28,6 +28,7 @@
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <activity android:name="com.fyber.ads.ofw.OfferWallActivity" android:configChanges="orientation|screenSize" />
             <activity android:configChanges="screenSize|orientation" android:name="com.fyber.ads.videos.RewardedVideoActivity" android:hardwareAccelerated="true"/>
+            <activity android:name="com.fyber.ads.interstitials.InterstitialActivity" android:configChanges="screenSize|orientation" android:theme="@android:style/Theme.Translucent" />
         </config-file>
 
         <source-file src="android/FyberPlugin.java" target-dir="src/uk/mondosports/plugins/fyber" />
