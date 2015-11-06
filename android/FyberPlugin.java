@@ -96,7 +96,7 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
             //when you start Fyber SDK you get a Settings object that you can use to customise the SDK behaviour.
             //Have a look at the method 'customiseFyberSettings' to learn more about possible customisation.
             Fyber.Settings fyberSettings = Fyber
-                    .with(this.appKey, , cordova.getActivity())
+                    .with(this.appKey, cordova.getActivity())
                     .withSecurityToken(this.securityToken)
 // by default Fyber SDK will start precaching. If you wish to only start precaching at a later time you can uncomment this line and use 'CacheManager' to start, pause or resume on demand.
 //                  .withManualPrecaching()
