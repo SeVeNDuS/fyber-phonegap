@@ -194,9 +194,4 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
     public void onSuccess(VirtualCurrencyResponse virtualCurrencyResponse) {
         FyberLogger.d(LOGTAG, "VCS coins received - " + virtualCurrencyResponse.getDeltaOfCoins());
     }
-
-    @Override
-    public void onRequestError(RequestError requestError) {
-        FyberLogger.d(LOGTAG, "error requesting vcs: " + requestError.getDescription());
-    }
 }
