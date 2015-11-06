@@ -162,6 +162,14 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
                 //in our sample app, we want to show the offer wall in a single step.
                 cordova.getActivity().startActivityForResult(intent, OFFERWALL_REQUEST_CODE);
                 break;
+            case REWARDED_VIDEO:
+                //in our sample app, we want to show the offer wall in a single step.
+                cordova.getActivity().startActivityForResult(intent, REWARDED_VIDEO_REQUEST_CODE);
+                break;
+            case INTERSTITIAL:
+                //in our sample app, we want to show the offer wall in a single step.
+                cordova.getActivity().startActivityForResult(intent, INTERSTITIAL_REQUEST_CODE);
+                break;
         }
     }
 
