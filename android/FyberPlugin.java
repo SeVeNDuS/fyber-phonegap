@@ -151,14 +151,11 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
     }
 
     private void showInterstitial() {
-        InterstitialRequester.create(this)
-                .request(cordova.getActivity());
+        InterstitialRequester.create(this).request(cordova.getActivity());
     }
 
     @Override
     public void onAdAvailable(Intent intent) {
-        resetRequestingState();
-        
         AdFormat adFormat = AdFormat.fromIntent(intent);
         switch (adFormat) {
             case OFFER_WALL:
