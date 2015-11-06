@@ -12,4 +12,8 @@ FyberPlugin.prototype.showRewardedVideo = function (success, error) {
 	cordova.exec(success, error, 'Fyber', 'showRewardedVideo', []);
 };
 
+FyberPlugin.prototype.showInterstitial = function (success, error) {
+	cordova.exec(success, error, 'Fyber', 'showInterstitial', []);
+};
+
 module.exports = new FyberPlugin();
