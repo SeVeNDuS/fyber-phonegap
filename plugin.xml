@@ -1,6 +1,6 @@
  <?xml version="1.0" encoding="UTF-8"?>
     <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="uk.mondosports.plugins.fyber" version="0.0.2">
+        id="uk.mondosports.plugins.fyber" version="0.1.0">
     <name>Fyber</name>
     <engines>
         <engine name="cordova" version=">=3.0.0" />
@@ -23,16 +23,14 @@
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
             <uses-permission android:name="android.permission.INTERNET" />
-            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity android:name="com.sponsorpay.publisher.ofw.SPOfferWallActivity" android:configChanges="orientation" />
+            <activity android:name="com.fyber.ads.ofw.OfferWallActivity" android:configChanges="orientation|screenSize" />
+            <activity android:configChanges="screenSize|orientation" android:name="com.fyber.ads.videos.RewardedVideoActivity" android:hardwareAccelerated="true"/>
         </config-file>
 
         <source-file src="android/FyberPlugin.java" target-dir="src/uk/mondosports/plugins/fyber" />
-        <source-file src="android/sponsorpay-android-sdk-7.0.2.jar" target-dir="libs/" />
+        <source-file src="android/fyber-sdk-8.0.1.jar" target-dir="libs/" />
     </platform>
 </plugin>
