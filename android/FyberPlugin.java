@@ -74,7 +74,9 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
             result = executeShowInterstitial(options, callbackContext);
         }
 
-        if (result != null) callbackContext.sendPluginResult(result);
+        if (result != null) {
+            callbackContext.sendPluginResult(result);
+        }
 
         return true;
     }
@@ -153,6 +155,15 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
         return null;
     }
 
+    private VirtualCurrencyRequester getVirtualCurrencyRequester() {
+        return VirtualCurrencyRequester.create(this)
+                .notifyUserOnReward(true)
+                .forCurrencyID(this.virtualCurrencyName);
+
+        // forCurrencyID: this is the currency id for RV ad format
+        // you can refer to this -- http://developer.fyber.com/content/android/basics/rewarding-the-user/vcs/
+    }
+
     @Override
     public void onAdAvailable(Intent intent) {
         AdFormat adFormat = AdFormat.fromIntent(intent);
@@ -176,17 +187,7 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
 
     @Override
     public void onRequestError(RequestError requestError) {
-        Log.w(LOGTAG, "Semething went wrong with the request: " + requestError.getDescription());
-    }
-
-    private VirtualCurrencyRequester getVirtualCurrencyRequester() {
-        return VirtualCurrencyRequester.create(this)
-                // user will get a toast notification upon reward
-                .notifyUserOnReward(true)
-//              this is the currency id for RV ad format
-//               you can refer to this -- http://developer.fyber.com/content/android/basics/rewarding-the-user/vcs/
-                .forCurrencyId(this.virtualCurrencyName)
-                ;
+        Log.w(LOGTAG, "Something went wrong with the request: " + requestError.getDescription());
     }
 
     @Override
