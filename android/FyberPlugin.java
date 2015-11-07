@@ -166,6 +166,8 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
 
     @Override
     public void onAdAvailable(Intent intent) {
+        Log.w(LOGTAG, "Ad available");
+
         AdFormat adFormat = AdFormat.fromIntent(intent);
         switch (adFormat) {
             case OFFER_WALL:
@@ -183,6 +185,7 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
     @Override
     public void onAdNotAvailable(AdFormat adFormat) {
         Log.w(LOGTAG, "No ad available");
+        webView.loadUrl(String.format("javascript:cordova.fireDocumentEvent('fyberAdNotAvailable', { 'adType': %s });", adFormat));
     }
 
     @Override
@@ -193,10 +196,12 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
     @Override
     public void onError(VirtualCurrencyErrorResponse virtualCurrencyErrorResponse) {
         Log.w(LOGTAG, "VCS error received - " + virtualCurrencyErrorResponse.getErrorMessage());
+        webView.loadUrl(String.format("javascript:cordova.fireDocumentEvent('fyberVCFailed', { 'reason': %s });", virtualCurrencyErrorResponse.getErrorMessage()));
     }
 
     @Override
     public void onSuccess(VirtualCurrencyResponse virtualCurrencyResponse) {
         Log.w(LOGTAG, "VCS coins received - " + virtualCurrencyResponse.getDeltaOfCoins());
+        webView.loadUrl(String.format("javascript:cordova.fireDocumentEvent('fyberVCSuccess', { 'amount': %d });", virtualCurrencyResponse.getDeltaOfCoins()));
     }
 }
