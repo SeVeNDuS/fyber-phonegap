@@ -14,6 +14,8 @@
 
     <platform name="android">
         <framework src="com.google.android.gms:play-services-ads:+" />
+        <framework src="com.fyber:fyber-annotations:1.0.0" />
+        <framework src="com.fyber:fyber-annotations-compiler:1.0.1" />
         
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Fyber">
@@ -33,12 +35,6 @@
 
         <source-file src="android/FyberPlugin.java" target-dir="src/uk/mondosports/plugins/fyber" />
         <source-file src="android/fyber-sdk-8.0.1.jar" target-dir="libs/" />
-        <source-file src="android/fyber-annotations-1.0.0.jar" target-dir="libs/" />
-        <source-file src="android/fyber-annotations-compiler-1.0.1.jar" target-dir="libs/" />
         <source-file src="android/fyber-chartboost-6.0.2-r1.jar" target-dir="libs/" />
-        <source-file src="android/guava-18.0.jar" target-dir="libs/" />
-        <source-file src="android/javapoet-1.1.0.jar" target-dir="libs/" />
-        <source-file src="android/javassist-3.18.2-GA.jar" target-dir="libs/" />
-        <source-file src="android/reflections-0.9.10.jar" target-dir="libs/" />
     </platform>
 </plugin>
