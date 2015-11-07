@@ -1,0 +1,14 @@
+configurations {
+    provided
+}
+
+dependencies {
+    provided 'com.fyber:fyber-annotations:1.0.0'
+    provided 'com.fyber:fyber-annotations-compiler:1.0.1'
+} 
+
+repositories {
+    flatDir {
+    dirs 'libs'
+    }
+}
