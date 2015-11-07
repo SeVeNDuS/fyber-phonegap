@@ -202,6 +202,6 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
     @Override
     public void onSuccess(VirtualCurrencyResponse virtualCurrencyResponse) {
         Log.w(LOGTAG, "VCS coins received - " + virtualCurrencyResponse.getDeltaOfCoins());
-        webView.loadUrl(String.format("javascript:cordova.fireDocumentEvent('fyberVCSuccess', { 'amount': %d });", virtualCurrencyResponse.getDeltaOfCoins()));
+        webView.loadUrl(String.format("javascript:cordova.fireDocumentEvent('fyberVCSuccess', { 'amount': %f });", virtualCurrencyResponse.getDeltaOfCoins()));
     }
 }
