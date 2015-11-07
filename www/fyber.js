@@ -1,7 +1,7 @@
 function FyberPlugin() {}
 
-FyberPlugin.prototype.initialize = function (appKey, userId, securityToken, success, error) {
-	cordova.exec(success, error, 'Fyber', 'initialize', [appKey, userId, securityToken]);
+FyberPlugin.prototype.initialize = function (appKey, userId, securityToken, virtualCurrencyName, success, error) {
+	cordova.exec(success, error, 'Fyber', 'initialize', [appKey, userId, securityToken, virtualCurrencyName]);
 };
 
 FyberPlugin.prototype.showOfferwall = function (success, error) {

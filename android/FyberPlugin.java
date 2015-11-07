@@ -35,6 +35,7 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
 
     private static final String LOGTAG = "FyberPlugin";
     private static final String DEFAULT_APP_KEY = "27434";
+    private static final String DEFAULT_VIRTUALCURRENCY_NAME = "mondos";
 
     protected static final int INTERSTITIAL_REQUEST_CODE = 8792;
     protected static final int OFFERWALL_REQUEST_CODE = 8795;
@@ -44,13 +45,16 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
     private static final String ACTION_SHOW_OFFERWALL = "showOfferwall";
     private static final String ACTION_SHOW_REWARDEDVIDEO = "showRewardedVideo";
     private static final String ACTION_SHOW_INTERSTITIAL = "showInterstitial";
+
     private static final String OPT_APPLICATION_KEY = "appKey";
     private static final String OPT_USER_ID = "userId";
     private static final String OPT_SECURITY_TOKEN = "securityToken";
+    private static final String OPT_VIRTUALCURRENCY_NAME = "virtualCurrencyName";
 
     private String appKey = DEFAULT_APP_KEY;
     private String userId = "5043b715c3bd823b760000ff";
     private String securityToken = "";
+    private String virtualCurrencyName = DEFAULT_VIRTUALCURRENCY_NAME;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -70,7 +74,7 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
             result = executeShowInterstitial(options, callbackContext);
         }
 
-        if (result != null) callbackContext.sendPluginResult( result );
+        if (result != null) callbackContext.sendPluginResult(result);
 
         return true;
     }
@@ -78,7 +82,7 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
     private PluginResult executeInitialize(JSONObject options, CallbackContext callbackContext) {
         Log.w(LOGTAG, "executeInitialize");
         
-        this.initialize( options );
+        this.initialize(options);
         
         callbackContext.success();
 
@@ -86,9 +90,18 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
     }
 
     private void initialize( JSONObject options ) {
-        if(options.has(OPT_APPLICATION_KEY)) this.appKey = options.optString( OPT_APPLICATION_KEY );
-        if(options.has(OPT_USER_ID)) this.userId = options.optString( OPT_USER_ID );
-        if(options.has(OPT_SECURITY_TOKEN)) this.securityToken = options.optString( OPT_SECURITY_TOKEN );
+        if (options.has(OPT_APPLICATION_KEY)) {
+            this.appKey = options.optString(OPT_APPLICATION_KEY);
+        }
+        if (options.has(OPT_USER_ID)) {
+            this.userId = options.optString(OPT_USER_ID);
+        }
+        if (options.has(OPT_SECURITY_TOKEN)) {
+            this.securityToken = options.optString(OPT_SECURITY_TOKEN);
+        }
+        if (options.has(OPT_VIRTUALCURRENCY_NAME)) {
+            this.virtualCurrencyName = options.optString(OPT_VIRTUALCURRENCY_NAME);
+        }
 
         try {
 
@@ -111,47 +124,33 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
     private PluginResult executeShowOfferwall(JSONObject options, CallbackContext callbackContext) {
         Log.w(LOGTAG, "executeShowOfferwall");
         
-        this.showOfferWall( options );
+        OfferWallRequester.create(this).request(cordova.getActivity());
         
         callbackContext.success();
 
         return null;
-    }
-
-    private void showOfferWall(JSONObject options) {
-        //Intent offerWallIntent = SponsorPayPublisher.getIntentForOfferWallActivity(cordova.getActivity().getApplicationContext(), true);
-        //cordova.getActivity().startActivityForResult(offerWallIntent, OFFERWALL_REQUEST_CODE);
-        OfferWallRequester.create(this).request(cordova.getActivity());
     }
     
     private PluginResult executeShowRewardedVideo(JSONObject options, CallbackContext callbackContext) {
         Log.w(LOGTAG, "executeShowRewardedVideo");
         
-        this.showRewardedVideo( );
+        RewardedVideoRequester.create(this)
+                .withVirtualCurrencyRequester(getVirtualCurrencyRequester())
+                .request(cordova.getActivity());
         
         callbackContext.success();
 
         return null;
-    }
-
-    private void showRewardedVideo() {
-        RewardedVideoRequester.create(this)
-                .withVirtualCurrencyRequester(getVirtualCurrencyRequester())
-                .request(cordova.getActivity());
     }
 
     private PluginResult executeShowInterstitial(JSONObject options, CallbackContext callbackContext) {
         Log.w(LOGTAG, "executeShowInterstitial");
         
-        this.showInterstitial( );
+        InterstitialRequester.create(this).request(cordova.getActivity());
         
         callbackContext.success();
 
         return null;
-    }
-
-    private void showInterstitial() {
-        InterstitialRequester.create(this).request(cordova.getActivity());
     }
 
     @Override
@@ -159,15 +158,12 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
         AdFormat adFormat = AdFormat.fromIntent(intent);
         switch (adFormat) {
             case OFFER_WALL:
-                //in our sample app, we want to show the offer wall in a single step.
                 cordova.getActivity().startActivityForResult(intent, OFFERWALL_REQUEST_CODE);
                 break;
             case REWARDED_VIDEO:
-                //in our sample app, we want to show the offer wall in a single step.
                 cordova.getActivity().startActivityForResult(intent, REWARDED_VIDEO_REQUEST_CODE);
                 break;
             case INTERSTITIAL:
-                //in our sample app, we want to show the offer wall in a single step.
                 cordova.getActivity().startActivityForResult(intent, INTERSTITIAL_REQUEST_CODE);
                 break;
         }
@@ -175,12 +171,12 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
 
     @Override
     public void onAdNotAvailable(AdFormat adFormat) {
-        FyberLogger.d(LOGTAG, "No ad available");
+        Log.w(LOGTAG, "No ad available");
     }
 
     @Override
     public void onRequestError(RequestError requestError) {
-        FyberLogger.d(LOGTAG, "Semething went wrong with the request: " + requestError.getDescription());
+        Log.w(LOGTAG, "Semething went wrong with the request: " + requestError.getDescription());
     }
 
     private VirtualCurrencyRequester getVirtualCurrencyRequester() {
@@ -189,17 +185,17 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
                 .notifyUserOnReward(true)
 //              this is the currency id for RV ad format
 //               you can refer to this -- http://developer.fyber.com/content/android/basics/rewarding-the-user/vcs/
-                .forCurrencyId("mondos")
+                .forCurrencyId(this.virtualCurrencyName)
                 ;
     }
 
     @Override
     public void onError(VirtualCurrencyErrorResponse virtualCurrencyErrorResponse) {
-        FyberLogger.d(LOGTAG, "VCS error received - " + virtualCurrencyErrorResponse.getErrorMessage());
+        Log.w(LOGTAG, "VCS error received - " + virtualCurrencyErrorResponse.getErrorMessage());
     }
 
     @Override
     public void onSuccess(VirtualCurrencyResponse virtualCurrencyResponse) {
-        FyberLogger.d(LOGTAG, "VCS coins received - " + virtualCurrencyResponse.getDeltaOfCoins());
+        Log.w(LOGTAG, "VCS coins received - " + virtualCurrencyResponse.getDeltaOfCoins());
     }
 }
