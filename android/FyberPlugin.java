@@ -158,9 +158,9 @@ public class FyberPlugin extends CordovaPlugin implements RequestCallback, Virtu
     private VirtualCurrencyRequester getVirtualCurrencyRequester() {
         return VirtualCurrencyRequester.create(this)
                 .notifyUserOnReward(true)
-                .forCurrencyID(this.virtualCurrencyName);
+                .forCurrencyId(this.virtualCurrencyName);
 
-        // forCurrencyID: this is the currency id for RV ad format
+        // forCurrencyId: this is the currency id for RV ad format
         // you can refer to this -- http://developer.fyber.com/content/android/basics/rewarding-the-user/vcs/
     }
 
